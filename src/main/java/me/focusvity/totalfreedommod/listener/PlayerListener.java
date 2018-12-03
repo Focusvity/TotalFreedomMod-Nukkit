@@ -5,10 +5,7 @@ import cn.nukkit.Server;
 import cn.nukkit.event.EventHandler;
 import cn.nukkit.event.EventPriority;
 import cn.nukkit.event.Listener;
-import cn.nukkit.event.player.PlayerAsyncPreLoginEvent;
-import cn.nukkit.event.player.PlayerChatEvent;
-import cn.nukkit.event.player.PlayerJoinEvent;
-import cn.nukkit.event.player.PlayerQuitEvent;
+import cn.nukkit.event.player.*;
 import cn.nukkit.utils.TextFormat;
 import me.focusvity.totalfreedommod.PlayerData;
 import me.focusvity.totalfreedommod.TotalFreedomMod;
@@ -25,6 +22,7 @@ public class PlayerListener implements Listener
 
     private final TotalFreedomMod plugin;
     private Server server;
+    //private CommandMap cmap = getCommandMap();
 
     public PlayerListener(TotalFreedomMod plugin)
     {
@@ -100,9 +98,73 @@ public class PlayerListener implements Listener
             return;
         }
 
-        String tag = PlayerData.getData(player).getTag() != null ? PlayerData.getData(player).getTag() : "";
+        String tag = PlayerData.getData(player).getTag() != null ? PlayerData.getData(player).getTag() + " " : "";
         String name = player.getDisplayName();
-        event.setFormat(tag + TextFormat.WHITE + " <" + name + "> " + event.getMessage());
+        event.setFormat(tag + TextFormat.WHITE + "<" + name + "> " + event.getMessage());
+    }
+
+    @EventHandler(priority = EventPriority.MONITOR)
+    public void onCommandPreprocess(PlayerCommandPreprocessEvent event)
+    {
+        Player player = event.getPlayer();
+        String command = event.getMessage();
+        boolean isAdmin = AdminList.isAdmin(player);
+
+        for (String string : plugin.config.getStringList("commands.default"))
+        {
+            if (command.equalsIgnoreCase(string) || command.split(" ")[0].equalsIgnoreCase(string))
+            {
+                player.sendMessage(TextFormat.RED + "That command is blocked!");
+                event.setCancelled(true);
+            }
+
+            /*if (cmap.getCommand(string) == null)
+            {
+                continue;
+            }
+
+            if (cmap.getCommand(string).getAliases() == null)
+            {
+                continue;
+            }
+
+            for (String alias : cmap.getCommand(string).getAliases())
+            {
+                if (command.equalsIgnoreCase(alias) || command.split(" ")[0].equalsIgnoreCase(alias))
+                {
+                    player.sendMessage(TextFormat.RED + "That command is blocked!");
+                    event.setCancelled(true);
+                }
+            }*/
+        }
+
+        for (String string : plugin.config.getStringList("commands.admins"))
+        {
+            if ((command.equalsIgnoreCase(string) || command.split(" ")[0].equalsIgnoreCase(string)) && !isAdmin)
+            {
+                player.sendMessage(TextFormat.RED + "That command is blocked!");
+                event.setCancelled(true);
+            }
+
+            /*if (cmap.getCommand(string) == null)
+            {
+                continue;
+            }
+
+            if (cmap.getCommand(string).getAliases() == null)
+            {
+                continue;
+            }
+
+            for (String alias : cmap.getCommand(string).getAliases())
+            {
+                if ((command.equalsIgnoreCase(alias) || command.split(" ")[0].equalsIgnoreCase(alias)) && !isAdmin)
+                {
+                    player.sendMessage(TextFormat.RED + "That command is blocked!");
+                    event.setCancelled(true);
+                }
+            }*/
+        }
     }
 
     /*@EventHandler(priority = EventPriority.LOW)
@@ -154,4 +216,27 @@ public class PlayerListener implements Listener
 
         return Rank.getRank(player);
     }
+
+    /*private CommandMap getCommandMap()
+    {
+        if (cmap == null)
+        {
+            try
+            {
+                final Field f = Server.getInstance().getClass().getDeclaredField("commandMap");
+                f.setAccessible(true);
+                cmap = (CommandMap) f.get(server);
+                return getCommandMap();
+            }
+            catch (NoSuchFieldException | IllegalAccessException ex)
+            {
+                plugin.getLogger().critical(ex.getMessage());
+            }
+        }
+        else
+        {
+            return cmap;
+        }
+        return getCommandMap();
+    }*/
 }
