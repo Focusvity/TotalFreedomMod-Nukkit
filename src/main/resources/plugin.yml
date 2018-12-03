@@ -1,0 +1,7 @@
+name: TotalFreedomMod
+version: ${project.version}
+api: ["1.0.7"]
+load: STARTUP
+author: _Fleek
+description: A freedom plugin designed for a Nukkit server
+main: me.focusvity.totalfreedommod.TotalFreedomMod
