@@ -2,6 +2,7 @@ package me.focusvity.totalfreedommod.listener;
 
 import cn.nukkit.Player;
 import cn.nukkit.Server;
+import cn.nukkit.command.SimpleCommandMap;
 import cn.nukkit.event.EventHandler;
 import cn.nukkit.event.EventPriority;
 import cn.nukkit.event.Listener;
@@ -17,12 +18,14 @@ import me.focusvity.totalfreedommod.rank.Rank;
 import me.focusvity.totalfreedommod.rank.Title;
 import me.focusvity.totalfreedommod.util.FUtil;
 
+import java.lang.reflect.Field;
+
 public class PlayerListener implements Listener
 {
 
     private final TotalFreedomMod plugin;
     private Server server;
-    //private CommandMap cmap = getCommandMap();
+    private SimpleCommandMap cmap = getCommandMap();
 
     public PlayerListener(TotalFreedomMod plugin)
     {
@@ -118,7 +121,7 @@ public class PlayerListener implements Listener
                 event.setCancelled(true);
             }
 
-            /*if (cmap.getCommand(string) == null)
+            if (cmap.getCommand(string) == null)
             {
                 continue;
             }
@@ -135,7 +138,7 @@ public class PlayerListener implements Listener
                     player.sendMessage(TextFormat.RED + "That command is blocked!");
                     event.setCancelled(true);
                 }
-            }*/
+            }
         }
 
         for (String string : plugin.config.getStringList("commands.admins"))
@@ -146,7 +149,7 @@ public class PlayerListener implements Listener
                 event.setCancelled(true);
             }
 
-            /*if (cmap.getCommand(string) == null)
+            if (cmap.getCommand(string) == null)
             {
                 continue;
             }
@@ -163,7 +166,7 @@ public class PlayerListener implements Listener
                     player.sendMessage(TextFormat.RED + "That command is blocked!");
                     event.setCancelled(true);
                 }
-            }*/
+            }
         }
     }
 
@@ -217,7 +220,7 @@ public class PlayerListener implements Listener
         return Rank.getRank(player);
     }
 
-    /*private CommandMap getCommandMap()
+    private SimpleCommandMap getCommandMap()
     {
         if (cmap == null)
         {
@@ -225,7 +228,7 @@ public class PlayerListener implements Listener
             {
                 final Field f = Server.getInstance().getClass().getDeclaredField("commandMap");
                 f.setAccessible(true);
-                cmap = (CommandMap) f.get(server);
+                cmap = (SimpleCommandMap) f.get(Server.getInstance());
                 return getCommandMap();
             }
             catch (NoSuchFieldException | IllegalAccessException ex)
@@ -238,5 +241,5 @@ public class PlayerListener implements Listener
             return cmap;
         }
         return getCommandMap();
-    }*/
+    }
 }

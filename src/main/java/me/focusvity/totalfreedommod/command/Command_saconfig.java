@@ -50,6 +50,7 @@ public class Command_saconfig
                 {
                     FUtil.adminAction(sender.getName(), "Re-adding " + admin.getName() + " to the admin list", true);
                     AdminList.getImposters().remove(admin.getName());
+                    AdminList.addIp(player, player.getAddress());
                     return true;
                 }
 

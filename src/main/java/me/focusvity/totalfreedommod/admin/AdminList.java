@@ -138,6 +138,26 @@ public class AdminList
         admins.add(admin);
     }
 
+    public static void addIp(Player player, String ip)
+    {
+        Admin admin = getAdmin(player);
+
+        if (admin == null)
+        {
+            return;
+        }
+
+        if (admin.getIps().contains(ip))
+        {
+            return;
+        }
+
+        admins.remove(admin);
+        admin.addIp(ip);
+        admin.saveTo(config.getSection(admin.getConfigKey()));
+        admins.add(admin);
+    }
+
     public static boolean isImposter(Player player)
     {
         return imposters.contains(player.getName());
