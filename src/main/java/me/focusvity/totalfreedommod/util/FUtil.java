@@ -12,6 +12,7 @@ import java.util.regex.Pattern;
 public class FUtil
 {
 
+    // Using XBOX account names.
     public static final List<String> DEVELOPERS = Arrays.asList("DARKE4GL300");
 
     public static void adminAction(String sender, String action, boolean isRed)

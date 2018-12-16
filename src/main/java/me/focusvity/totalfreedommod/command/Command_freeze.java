@@ -29,7 +29,7 @@ public class Command_freeze
         }
 
         boolean freeze = PlayerData.getData(player).isFrozen();
-        FUtil.adminAction(sender.getName(), (freeze ? "Freezing " : "Unfreezing ") + player.getName(), false);
+        FUtil.adminAction(sender.getName(), (freeze ? "Unfreezing " : "Freezing ") + player.getName(), false);
         PlayerData.getData(player).setFrozen(!freeze);
         return true;
     }

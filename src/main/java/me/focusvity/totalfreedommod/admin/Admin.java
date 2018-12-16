@@ -27,6 +27,9 @@ public class Admin
     @Getter
     @Setter
     private boolean active = true;
+    @Getter
+    @Setter
+    private boolean commandSpyEnabled = true;
 
     public Admin(Player player)
     {
@@ -48,7 +51,8 @@ public class Admin
         s.append("Admin: ").append(name).append("\n")
                 .append("IPs: ").append(StringUtils.join(ips, ", ")).append("\n")
                 .append("Rank: ").append(rank.getName()).append("\n")
-                .append("Active: ").append(active);
+                .append("Active: ").append(active).append("\n")
+                .append("Command Spy: ").append(commandSpyEnabled);
 
         return s.toString();
     }
@@ -59,6 +63,7 @@ public class Admin
         ips.addAll(c.getStringList("ips"));
         rank = Rank.findRank(c.getString("rank"));
         active = c.getBoolean("active", true);
+        commandSpyEnabled = c.getBoolean("cmdspy", true);
     }
 
     public void saveTo(ConfigSection c)
@@ -67,6 +72,7 @@ public class Admin
         c.set("ips", Lists.newArrayList(ips));
         c.set("rank", rank.toString());
         c.set("active", active);
+        c.set("cmdspy", commandSpyEnabled);
     }
 
     public void addIp(String ip)

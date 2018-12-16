@@ -1,14 +1,11 @@
 #
 # TotalFreedomMod v0.1
-# Created by _Fleek_
+# Created by _Fleek
 #
 
 server:
   # Your server's name
   name: TotalFreedom
-
-  # Your server's MOTD/Server Ping Message - Chat Colors are supported
-  motd: TotalFreedom Bedrock Edition
 
   # Your server's owner(s)
   owners: []

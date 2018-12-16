@@ -113,6 +113,16 @@ public class PlayerListener implements Listener
         String command = event.getMessage();
         boolean isAdmin = AdminList.isAdmin(player);
 
+        plugin.getLogger().info("[COMMAND] " + player.getName() + " has executed " + command.replaceFirst("/", ""));
+
+        for (Player players : server.getOnlinePlayers().values())
+        {
+            if (AdminList.isAdmin(players) && Rank.getRank(players).getLevel() > Rank.getRank(player).getLevel() && players != player)
+            {
+                players.sendMessage(player.getName() + ": " + command);
+            }
+        }
+
         for (String string : plugin.config.getStringList("commands.default"))
         {
             if (command.equalsIgnoreCase(string) || command.split(" ")[0].equalsIgnoreCase(string))
