@@ -18,16 +18,16 @@ public class Command_list
 
     public boolean onCommand(CommandSender sender, Command cmd, String string, String[] args)
     {
+        sender.sendMessage(TextFormat.BLUE + "There are "
+                + TextFormat.RED + Server.getInstance().getOnlinePlayers().size() + "/" + Server.getInstance().getMaxPlayers()
+                + TextFormat.BLUE + " players online.");
+
         if (args.length == 0)
         {
-            sender.sendMessage(TextFormat.BLUE + "There are "
-                    + TextFormat.RED + Server.getInstance().getOnlinePlayers().size() + "/" + Server.getInstance().getMaxPlayers()
-                    + TextFormat.BLUE + " players online.");
-
             final List<String> names = Lists.newArrayList();
             for (Player player : Server.getInstance().getOnlinePlayers().values())
             {
-                String tag = Rank.getRank(player).getTag() + " ";
+                String tag = Rank.getDisplay(player).getTag() + " ";
                 names.add(tag + player.getName());
             }
 
@@ -41,14 +41,10 @@ public class Command_list
             {
                 case "-a":
                 {
-                    sender.sendMessage(TextFormat.BLUE + "There are "
-                            + TextFormat.RED + Server.getInstance().getOnlinePlayers().size() + "/" + Server.getInstance().getMaxPlayers()
-                            + TextFormat.BLUE + " players online.");
-
                     final List<String> names = Lists.newArrayList();
                     for (Player player : Server.getInstance().getOnlinePlayers().values())
                     {
-                        String tag = Rank.getRank(player).getTag() + " ";
+                        String tag = Rank.getDisplay(player).getTag() + " ";
                         if (AdminList.isAdmin(player))
                         {
                             names.add(tag + player.getName());
@@ -60,14 +56,10 @@ public class Command_list
                 }
                 case "-i":
                 {
-                    sender.sendMessage(TextFormat.BLUE + "There are "
-                            + TextFormat.RED + Server.getInstance().getOnlinePlayers().size() + "/" + Server.getInstance().getMaxPlayers()
-                            + TextFormat.BLUE + " players online.");
-
                     final List<String> names = Lists.newArrayList();
                     for (Player player : Server.getInstance().getOnlinePlayers().values())
                     {
-                        String tag = Rank.getRank(player).getTag() + " ";
+                        String tag = Rank.getDisplay(player).getTag() + " ";
                         if (AdminList.isImposter(player))
                         {
                             names.add(tag + player.getName());

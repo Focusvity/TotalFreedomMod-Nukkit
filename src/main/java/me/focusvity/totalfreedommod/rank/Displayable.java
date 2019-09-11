@@ -5,11 +5,11 @@ import cn.nukkit.utils.TextFormat;
 public interface Displayable
 {
 
-    public String getName();
+    String getName();
 
-    public String getTag();
+    String getTag();
 
-    public TextFormat getColor();
+    TextFormat getColor();
 
-    public String getLoginMessage();
+    String getLoginMessage();
 }

@@ -44,8 +44,11 @@ public class Command_ban
 
         FUtil.adminAction(sender.getName(), "Banning " + player.getName()
                 + (reason != null ? "\nReason: " + TextFormat.YELLOW + reason : ""), true);
-        BanManager.addBan(sender, player, reason, FUtil.parseDateOffset("1d"));
-        player.kick(PlayerKickEvent.Reason.UNKNOWN, TextFormat.RED + "Banned!");
+
+        long expiry = FUtil.getUnixTime(FUtil.parseDateOffset("1d"));
+
+        BanManager.addBan(sender, player, reason, expiry);
+        player.kick(TextFormat.RED + "Banned!");
         return true;
     }
 }

@@ -47,6 +47,11 @@ public class FUtil
         }
     }
 
+    public static long getUnixTime()
+    {
+        return System.currentTimeMillis() / 1000;
+    }
+
     public static long getUnixTime(Date date)
     {
         if (date == null)

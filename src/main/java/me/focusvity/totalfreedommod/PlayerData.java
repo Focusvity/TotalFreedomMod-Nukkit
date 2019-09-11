@@ -54,7 +54,7 @@ public class PlayerData
     {
         if (!(sender instanceof Player))
         {
-            return null; // Console doesn't get a player data
+            return null;
         }
 
         return getData((Player) sender);
@@ -84,7 +84,7 @@ public class PlayerData
                 FUtil.adminAction("TotalFreedom", "Unmuting " + player.getName(), false);
                 setMuted(false);
             }
-        }.runTaskLater(TotalFreedomMod.plugin, 6000); // Probs using ticks (20 ticks per second) -> 6000 ticks = 5 minutes
+        }.runTaskLater(TotalFreedomMod.plugin, 6000);
         muteTask = (NukkitRunnable) task;
     }
 

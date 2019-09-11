@@ -6,6 +6,7 @@ import cn.nukkit.utils.Config;
 import com.google.common.collect.Lists;
 import lombok.Getter;
 import me.focusvity.totalfreedommod.TotalFreedomMod;
+import me.focusvity.totalfreedommod.util.FUtil;
 
 import java.util.Date;
 import java.util.List;
@@ -57,7 +58,7 @@ public class BanManager
         }
     }
 
-    public static void addBan(CommandSender sender, Player player, String reason, Date date)
+    public static void addBan(CommandSender sender, Player player, String reason, long expiry)
     {
         if (isBanned(player))
         {
@@ -67,11 +68,11 @@ public class BanManager
         Ban ban = new Ban(player);
         ban.setBy(sender.getName());
         ban.setReason(reason);
-        ban.setExpiry(date);
+        ban.setExpiry(expiry);
         addBan(ban);
     }
 
-    public static void addBan(CommandSender sender, String name, String ip, String reason, Date date)
+    public static void addBan(CommandSender sender, String name, String ip, String reason, long expiry)
     {
         if (getBan(name, ip) != null)
         {
@@ -82,7 +83,7 @@ public class BanManager
         ban.setIps(Lists.newArrayList(ip));
         ban.setBy(sender.getName());
         ban.setReason(reason);
-        ban.setExpiry(date);
+        ban.setExpiry(expiry);
         addBan(ban);
     }
 

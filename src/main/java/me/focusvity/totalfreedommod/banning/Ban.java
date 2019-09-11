@@ -8,11 +8,14 @@ import lombok.Getter;
 import lombok.Setter;
 import me.focusvity.totalfreedommod.util.FUtil;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 public class Ban
 {
+
+    public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd \'at\' HH:mm:ss");
 
     @Getter
     private String configKey;
@@ -30,7 +33,7 @@ public class Ban
     private String reason;
     @Getter
     @Setter
-    private Date expiry;
+    private long expiry = -1;
 
     public Ban(Player player)
     {
@@ -49,17 +52,17 @@ public class Ban
         return TextFormat.RED + "You're currently banned from this server"
                 + "\nReason: " + TextFormat.YELLOW + (reason != null ? reason : "N/A") + TextFormat.RED
                 + "\nBanned by: " + TextFormat.YELLOW + by + TextFormat.RED
-                + "\nYour ban will expire on " + TextFormat.YELLOW + FUtil.parseDateToString(expiry);
+                + "\nYour ban will expire on " + TextFormat.YELLOW + FUtil.getUnixDate(expiry);
     }
 
     public boolean isExpired()
     {
-        if (expiry == null)
-        {
-            return false;
-        }
+        return hasExpiry() && expiry < FUtil.getUnixTime();
+    }
 
-        return expiry.after(new Date());
+    public boolean hasExpiry()
+    {
+        return expiry > 0;
     }
 
     public void saveTo(ConfigSection section)
@@ -68,15 +71,15 @@ public class Ban
         section.set("ips", Lists.newArrayList(ips));
         section.set("reason", reason);
         section.set("by", by);
-        section.set("expiry", FUtil.getUnixTime(expiry));
+        section.set("expiry", expiry > 0 ? expiry : null);
     }
 
     public void loadFrom(ConfigSection section)
     {
-        name = section.getString("username", name);
+        name = section.getString("username", null);
         ips.addAll(section.getStringList("ips"));
-        reason = section.getString("reason", reason);
-        by = section.getString("by", by);
-        expiry = FUtil.getUnixDate(section.getLong("expiry"));
+        reason = section.getString("reason", null);
+        by = section.getString("by", null);
+        expiry = section.getLong("expiry", 0);
     }
 }

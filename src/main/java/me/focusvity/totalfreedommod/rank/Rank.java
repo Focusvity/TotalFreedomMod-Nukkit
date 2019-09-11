@@ -4,7 +4,9 @@ import cn.nukkit.Player;
 import cn.nukkit.command.CommandSender;
 import cn.nukkit.utils.TextFormat;
 import lombok.Getter;
+import me.focusvity.totalfreedommod.TotalFreedomMod;
 import me.focusvity.totalfreedommod.admin.AdminList;
+import me.focusvity.totalfreedommod.util.FUtil;
 
 public enum Rank implements Displayable
 {
@@ -25,7 +27,7 @@ public enum Rank implements Displayable
     @Getter
     private final TextFormat color;
 
-    private Rank(String determiner, String name, String tag, TextFormat color)
+    Rank(String determiner, String name, String tag, TextFormat color)
     {
         this.determiner = determiner;
         this.name = name;
@@ -83,5 +85,37 @@ public enum Rank implements Displayable
     public String getLoginMessage()
     {
         return determiner + " " + color + TextFormat.ITALIC + name;
+    }
+
+    public static Displayable getDisplay(Player player)
+    {
+        if (AdminList.isImposter(player))
+        {
+            return Rank.IMPOSTER;
+        }
+
+        if (FUtil.DEVELOPERS.contains(player.getName()))
+        {
+            return Title.DEVELOPER;
+        }
+
+        if (TotalFreedomMod.plugin.config.getList("server.executives").contains(player.getName())
+                && AdminList.isAdmin(player))
+        {
+            return Title.EXECUTIVE;
+        }
+
+        if (TotalFreedomMod.plugin.config.getList("server.owners").contains(player.getName()))
+        {
+            return Title.OWNER;
+        }
+
+        if (TotalFreedomMod.plugin.config.getList("server.masterbuilders").contains(player.getName())
+                && !AdminList.isAdmin(player))
+        {
+            return Title.MASTER_BUILDER;
+        }
+
+        return Rank.getRank(player);
     }
 }

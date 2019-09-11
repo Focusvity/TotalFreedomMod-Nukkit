@@ -7,6 +7,7 @@ import cn.nukkit.event.EventHandler;
 import cn.nukkit.event.EventPriority;
 import cn.nukkit.event.Listener;
 import cn.nukkit.event.player.*;
+import cn.nukkit.level.Location;
 import cn.nukkit.utils.TextFormat;
 import me.focusvity.totalfreedommod.PlayerData;
 import me.focusvity.totalfreedommod.TotalFreedomMod;
@@ -74,10 +75,10 @@ public class PlayerListener implements Listener
                 return;
             }
 
-            server.broadcastMessage(TextFormat.AQUA + player.getName() + " is " + getDisplay(player).getLoginMessage());
+            server.broadcastMessage(TextFormat.AQUA + player.getName() + " is " + Rank.getDisplay(player).getLoginMessage());
         }
 
-        PlayerData.getData(player).setTag(getDisplay(player).getTag());
+        PlayerData.getData(player).setTag(Rank.getDisplay(player).getTag());
     }
 
     @EventHandler(priority = EventPriority.MONITOR)
@@ -180,54 +181,30 @@ public class PlayerListener implements Listener
         }
     }
 
-    /*@EventHandler(priority = EventPriority.LOW)
+    @EventHandler(priority = EventPriority.HIGH)
     public void onMove(PlayerMoveEvent event)
     {
         Player player = event.getPlayer();
+        Location location = player.getLocation();
 
         if (PlayerData.getData(player).isFrozen())
         {
-            player.teleport(event.getFrom());
+            player.teleport(location);
             event.setCancelled(true);
         }
     }
 
-    @EventHandler(priority = EventPriority.LOW)
+    @EventHandler(priority = EventPriority.HIGH)
     public void onTeleport(PlayerTeleportEvent event)
     {
         Player player = event.getPlayer();
+        Location location = player.getLocation();
 
         if (PlayerData.getData(player).isFrozen())
         {
-            player.teleport(event.getFrom());
+            player.teleport(location);
             event.setCancelled(true);
         }
-    }*/
-
-    //TODO master builder
-    private Displayable getDisplay(Player player)
-    {
-        if (AdminList.isImposter(player))
-        {
-            return Rank.IMPOSTER;
-        }
-
-        if (FUtil.DEVELOPERS.contains(player.getName()))
-        {
-            return Title.DEVELOPER;
-        }
-
-        if (TotalFreedomMod.plugin.config.getList("server.executives").contains(player.getName()) && AdminList.isAdmin(player))
-        {
-            return Title.EXECUTIVE;
-        }
-
-        if (TotalFreedomMod.plugin.config.getList("server.owners").contains(player.getName()))
-        {
-            return Title.OWNER;
-        }
-
-        return Rank.getRank(player);
     }
 
     private SimpleCommandMap getCommandMap()
