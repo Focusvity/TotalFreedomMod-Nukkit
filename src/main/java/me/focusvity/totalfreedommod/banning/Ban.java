@@ -9,16 +9,15 @@ import lombok.Setter;
 import me.focusvity.totalfreedommod.util.FUtil;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 public class Ban
 {
 
-    public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd \'at\' HH:mm:ss");
+    public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss");
 
     @Getter
-    private String configKey;
+    private final String configKey;
     @Getter
     @Setter
     private String name;

@@ -9,8 +9,8 @@ import me.focusvity.totalfreedommod.rank.Rank;
 import me.focusvity.totalfreedommod.util.FUtil;
 import org.apache.commons.lang3.StringUtils;
 
-@CommandParameters(description = "Smite a bad player", usage = "/<command> <player> [reason]", rank = Rank.SUPER_ADMIN, source = SourceType.BOTH)
-public class Command_smite
+@CommandParameters(name = "smite", description = "Smite a bad player", usage = "/<command> <player> [reason]", rank = Rank.SUPER_ADMIN, source = SourceType.BOTH)
+public class Command_smite extends FreedomCommand
 {
 
     public static void smite(CommandSender sender, Player player, String reason)
@@ -41,6 +41,7 @@ public class Command_smite
         }
     }
 
+    @Override
     public boolean onCommand(CommandSender sender, Command cmd, String string, String[] args)
     {
         if (args.length < 1)

@@ -9,6 +9,8 @@ import java.lang.annotation.RetentionPolicy;
 public @interface CommandParameters
 {
 
+    String name();
+
     String description();
 
     String usage() default "/<command>";

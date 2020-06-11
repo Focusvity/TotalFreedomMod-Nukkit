@@ -6,10 +6,11 @@ import cn.nukkit.command.CommandSender;
 import cn.nukkit.utils.TextFormat;
 import me.focusvity.totalfreedommod.rank.Rank;
 
-@CommandParameters(description = "Set your gamemode to adventure", aliases = "gma", rank = Rank.OP, source = SourceType.PLAYER)
-public class Command_adventure
+@CommandParameters(name = "adventure", description = "Set your gamemode to adventure", aliases = "gma", rank = Rank.OP, source = SourceType.PLAYER)
+public class Command_adventure extends FreedomCommand
 {
 
+    @Override
     public boolean onCommand(CommandSender sender, Command cmd, String string, String[] args)
     {
         if (args.length > 0)

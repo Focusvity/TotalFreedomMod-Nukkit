@@ -14,10 +14,7 @@ import me.focusvity.totalfreedommod.TotalFreedomMod;
 import me.focusvity.totalfreedommod.admin.AdminList;
 import me.focusvity.totalfreedommod.banning.Ban;
 import me.focusvity.totalfreedommod.banning.BanManager;
-import me.focusvity.totalfreedommod.rank.Displayable;
 import me.focusvity.totalfreedommod.rank.Rank;
-import me.focusvity.totalfreedommod.rank.Title;
-import me.focusvity.totalfreedommod.util.FUtil;
 
 import java.lang.reflect.Field;
 
@@ -25,7 +22,7 @@ public class PlayerListener implements Listener
 {
 
     private final TotalFreedomMod plugin;
-    private Server server;
+    private final Server server;
     private SimpleCommandMap cmap = getCommandMap();
 
     public PlayerListener(TotalFreedomMod plugin)
@@ -38,11 +35,11 @@ public class PlayerListener implements Listener
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onPreLogin(PlayerAsyncPreLoginEvent event)
     {
-        Ban ban = BanManager.getBan(event.getName(), false);
+        Ban ban = BanManager.getNameBan(event.getName());
 
         if (ban == null)
         {
-            ban = BanManager.getBan(event.getAddress(), true);
+            ban = BanManager.getIpBan(event.getAddress());
         }
 
         if (ban != null && !ban.isExpired())

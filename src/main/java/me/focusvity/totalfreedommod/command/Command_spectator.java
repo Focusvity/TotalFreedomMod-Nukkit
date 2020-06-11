@@ -6,10 +6,11 @@ import cn.nukkit.command.CommandSender;
 import cn.nukkit.utils.TextFormat;
 import me.focusvity.totalfreedommod.rank.Rank;
 
-@CommandParameters(description = "Set your gamemode to spectator", aliases = "gmsp", rank = Rank.SUPER_ADMIN, source = SourceType.PLAYER)
-public class Command_spectator
+@CommandParameters(name = "spectator", description = "Set your gamemode to spectator", aliases = "gmsp", rank = Rank.SUPER_ADMIN, source = SourceType.PLAYER)
+public class Command_spectator extends FreedomCommand
 {
 
+    @Override
     public boolean onCommand(CommandSender sender, Command cmd, String string, String[] args)
     {
         if (args.length > 0)

@@ -26,14 +26,14 @@ public class TotalFreedomMod extends PluginBase
     @Override
     public void onLoad()
     {
-        this.plugin = this;
+        plugin = this;
         initConfig();
     }
 
     @Override
     public void onEnable()
     {
-        this.plugin = this;
+        plugin = this;
 
         al = new AdminList(plugin);
         bm = new BanManager(plugin);
@@ -48,10 +48,10 @@ public class TotalFreedomMod extends PluginBase
     @Override
     public void onDisable()
     {
-        this.plugin = null;
+        plugin = null;
 
         al.save();
-        bm.save();
+        BanManager.save();
 
         config.save();
         admins.save();

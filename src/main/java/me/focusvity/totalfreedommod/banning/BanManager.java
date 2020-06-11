@@ -6,9 +6,7 @@ import cn.nukkit.utils.Config;
 import com.google.common.collect.Lists;
 import lombok.Getter;
 import me.focusvity.totalfreedommod.TotalFreedomMod;
-import me.focusvity.totalfreedommod.util.FUtil;
 
-import java.util.Date;
 import java.util.List;
 
 public class BanManager
@@ -58,11 +56,11 @@ public class BanManager
         }
     }
 
-    public static void addBan(CommandSender sender, Player player, String reason, long expiry)
+    public static boolean addBan(CommandSender sender, Player player, String reason, long expiry)
     {
         if (isBanned(player))
         {
-            return;
+            return false;
         }
 
         Ban ban = new Ban(player);
@@ -70,13 +68,14 @@ public class BanManager
         ban.setReason(reason);
         ban.setExpiry(expiry);
         addBan(ban);
+        return true;
     }
 
-    public static void addBan(CommandSender sender, String name, String ip, String reason, long expiry)
+    public static boolean addBan(CommandSender sender, String name, String ip, String reason, long expiry)
     {
-        if (getBan(name, ip) != null)
+        if (getNameBan(name) != null || getIpBan(ip) != null)
         {
-            return;
+            return false;
         }
 
         Ban ban = new Ban(name);
@@ -85,6 +84,7 @@ public class BanManager
         ban.setReason(reason);
         ban.setExpiry(expiry);
         addBan(ban);
+        return true;
     }
 
     public static void removeBan(Ban ban)
@@ -142,46 +142,25 @@ public class BanManager
         return null;
     }
 
-    public static Ban getBan(String name, String ip)
+    public static Ban getNameBan(String name)
     {
         for (Ban ban : bans)
         {
-            if (ban.getName() != null)
+            if (ban.getName().equalsIgnoreCase(name))
             {
-                if (ban.getName().equalsIgnoreCase(name))
-                {
-                    return ban;
-                }
-            }
-
-            if (ban.getIps() != null)
-            {
-                if (ban.getIps().contains(ip))
-                {
-                    return ban;
-                }
+                return ban;
             }
         }
         return null;
     }
 
-    public static Ban getBan(String string, boolean ip)
+    public static Ban getIpBan(String ip)
     {
         for (Ban ban : bans)
         {
-            if (ip)
+            if (ban.getIps().contains(ip))
             {
-                if (ban.getIps().contains(string))
-                {
-                    return ban;
-                }
-            }
-            else
-            {
-                if (ban.getName().equalsIgnoreCase(string))
-                {
-                    return ban;
-                }
+                return ban;
             }
         }
         return null;

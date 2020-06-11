@@ -10,10 +10,11 @@ import me.focusvity.totalfreedommod.admin.AdminList;
 import me.focusvity.totalfreedommod.rank.Rank;
 import me.focusvity.totalfreedommod.util.FUtil;
 
-@CommandParameters(description = "Manage an admin", usage = "/<command> <add <player> | remove <player> | info <player> | setrank <player> <rank>>", rank = Rank.SUPER_ADMIN, source = SourceType.BOTH)
-public class Command_saconfig
+@CommandParameters(name = "saconfig", description = "Manage an admin", usage = "/<command> <add <player> | remove <player> | info <player> | setrank <player> <rank>>", rank = Rank.SUPER_ADMIN, source = SourceType.BOTH)
+public class Command_saconfig extends FreedomCommand
 {
 
+    @Override
     public boolean onCommand(CommandSender sender, Command cmd, String string, String[] args)
     {
         if (args.length < 1)

@@ -9,10 +9,11 @@ import me.focusvity.totalfreedommod.PlayerData;
 import me.focusvity.totalfreedommod.rank.Rank;
 import me.focusvity.totalfreedommod.util.FUtil;
 
-@CommandParameters(description = "Freeze a player", usage = "/<command> <player>", aliases = "fr", rank = Rank.SUPER_ADMIN, source = SourceType.PLAYER)
-public class Command_freeze
+@CommandParameters(name = "freeze", description = "Freeze a player", usage = "/<command> <player>", aliases = "fr", rank = Rank.SUPER_ADMIN, source = SourceType.PLAYER)
+public class Command_freeze extends FreedomCommand
 {
 
+    @Override
     public boolean onCommand(CommandSender sender, Command cmd, String string, String[] args)
     {
         if (args.length != 1)

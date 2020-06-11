@@ -17,7 +17,7 @@ public class Admin
     @Setter
     private final List<String> ips = Lists.newArrayList();
     @Getter
-    private String configKey;
+    private final String configKey;
     @Getter
     @Setter
     private String name;
@@ -93,10 +93,7 @@ public class Admin
 
     public void removeIp(String ip)
     {
-        if (ips.contains(ip))
-        {
-            ips.remove(ip);
-        }
+        ips.remove(ip);
     }
 
     public void clearIPs()

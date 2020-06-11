@@ -7,10 +7,11 @@ import me.focusvity.totalfreedommod.rank.Rank;
 import me.focusvity.totalfreedommod.util.FUtil;
 import org.apache.commons.lang3.StringUtils;
 
-@CommandParameters(description = "Another fancy way to chat", usage = "/<command> <message>", rank = Rank.SUPER_ADMIN, source = SourceType.BOTH)
-public class Command_say
+@CommandParameters(name = "say", description = "Another fancy way to chat", usage = "/<command> <message>", rank = Rank.SUPER_ADMIN, source = SourceType.BOTH)
+public class Command_say extends FreedomCommand
 {
 
+    @Override
     public boolean onCommand(CommandSender sender, Command cmd, String string, String[] args)
     {
         if (args.length < 1)

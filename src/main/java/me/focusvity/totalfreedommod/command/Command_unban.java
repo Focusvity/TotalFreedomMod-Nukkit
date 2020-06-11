@@ -7,10 +7,11 @@ import me.focusvity.totalfreedommod.banning.BanManager;
 import me.focusvity.totalfreedommod.rank.Rank;
 import me.focusvity.totalfreedommod.util.FUtil;
 
-@CommandParameters(description = "Unbans a player", usage = "/<command> <player>", rank = Rank.SUPER_ADMIN, source = SourceType.BOTH)
-public class Command_unban
+@CommandParameters(name = "unban", description = "Unbans a player", usage = "/<command> <player>", rank = Rank.SUPER_ADMIN, source = SourceType.BOTH)
+public class Command_unban extends FreedomCommand
 {
 
+    @Override
     public boolean onCommand(CommandSender sender, Command cmd, String string, String[] args)
     {
         if (args.length != 1)
@@ -18,14 +19,14 @@ public class Command_unban
             return false;
         }
 
-        if (BanManager.getBan(args[0], false) == null)
+        if (BanManager.getNameBan(args[0]) == null)
         {
             sender.sendMessage(TextFormat.RED + "That player doesn't seem to be banned!");
             return true;
         }
 
         FUtil.adminAction(sender.getName(), "Unbanning " + args[0], true);
-        BanManager.removeBan(BanManager.getBan(args[0], false));
+        BanManager.removeBan(BanManager.getNameBan(args[0]));
         return true;
     }
 }

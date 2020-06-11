@@ -9,10 +9,11 @@ import me.focusvity.totalfreedommod.rank.Rank;
 import me.focusvity.totalfreedommod.util.FUtil;
 
 
-@CommandParameters(description = "Ops everyone", rank = Rank.SUPER_ADMIN, source = SourceType.BOTH)
-public class Command_opall
+@CommandParameters(name = "opall", description = "Ops everyone", rank = Rank.SUPER_ADMIN, source = SourceType.BOTH)
+public class Command_opall extends FreedomCommand
 {
 
+    @Override
     public boolean onCommand(CommandSender sender, Command cmd, String string, String[] args)
     {
         if (args.length > 0)

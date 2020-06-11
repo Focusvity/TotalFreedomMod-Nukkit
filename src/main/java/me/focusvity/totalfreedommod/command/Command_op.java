@@ -8,10 +8,11 @@ import cn.nukkit.utils.TextFormat;
 import me.focusvity.totalfreedommod.rank.Rank;
 import me.focusvity.totalfreedommod.util.FUtil;
 
-@CommandParameters(description = "Ops a player", usage = "/<command> <player>", rank = Rank.OP, source = SourceType.BOTH)
-public class Command_op
+@CommandParameters(name = "op", description = "Ops a player", usage = "/<command> <player>", rank = Rank.OP, source = SourceType.BOTH)
+public class Command_op extends FreedomCommand
 {
 
+    @Override
     public boolean onCommand(CommandSender sender, Command cmd, String string, String[] args)
     {
         if (args.length != 1)

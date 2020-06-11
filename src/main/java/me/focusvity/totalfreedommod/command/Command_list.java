@@ -12,10 +12,11 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 
-@CommandParameters(description = "Shows online players", usage = "/<command> [-a | -i]", aliases = "who", rank = Rank.IMPOSTER, source = SourceType.BOTH)
-public class Command_list
+@CommandParameters(name = "list", description = "Shows online players", usage = "/<command> [-a | -i]", aliases = "who", rank = Rank.IMPOSTER, source = SourceType.BOTH)
+public class Command_list extends FreedomCommand
 {
 
+    @Override
     public boolean onCommand(CommandSender sender, Command cmd, String string, String[] args)
     {
         sender.sendMessage(TextFormat.BLUE + "There are "
@@ -66,7 +67,7 @@ public class Command_list
                         }
                     }
 
-                    sender.sendMessage(TextFormat.WHITE + "Connected imposters: " + StringUtils.join(names, TextFormat.WHITE + ", "));
+                    sender.sendMessage(TextFormat.WHITE + "Connected impostors: " + StringUtils.join(names, TextFormat.WHITE + ", "));
                     return true;
                 }
                 default:

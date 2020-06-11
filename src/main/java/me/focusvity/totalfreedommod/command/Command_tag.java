@@ -12,13 +12,14 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.Arrays;
 import java.util.List;
 
-@CommandParameters(description = "Set your own fancy tag", usage = "/<command> <tag>", rank = Rank.OP, source = SourceType.PLAYER)
-public class Command_tag
+@CommandParameters(name = "tag", description = "Set your own fancy tag", usage = "/<command> <tag>", rank = Rank.OP, source = SourceType.PLAYER)
+public class Command_tag extends FreedomCommand
 {
 
     public static final List<String> FORBIDDEN_WORDS = Arrays.asList(
             "admin", "owner", "moderator", "developer", "console", "dev", "staff", "mod", "sra", "tca", "sta", "sa");
 
+    @Override
     public boolean onCommand(CommandSender sender, Command cmd, String string, String[] args)
     {
         if (args.length < 1)

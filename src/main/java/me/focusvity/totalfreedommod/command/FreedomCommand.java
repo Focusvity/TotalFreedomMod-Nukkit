@@ -8,6 +8,7 @@ import me.focusvity.totalfreedommod.TotalFreedomMod;
 import me.focusvity.totalfreedommod.rank.Rank;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.MalformedParametersException;
 import java.util.HashMap;
 
 public abstract class FreedomCommand implements CommandExecutor
@@ -21,14 +22,21 @@ public abstract class FreedomCommand implements CommandExecutor
     protected final Rank rank;
     protected final SourceType source;
 
-    public FreedomCommand(String commandName, String description, String usage, String[] aliases, Rank rank, SourceType source)
+    public FreedomCommand()
     {
-        this.commandName = commandName;
-        this.description = description;
-        this.usage = usage;
-        this.aliases = aliases;
-        this.rank = rank;
-        this.source = source;
+        CommandParameters params = getClass().getAnnotation(CommandParameters.class);
+
+        if (params == null)
+        {
+            throw new MalformedParametersException("Missing Command Parameters class in " + getClass().getName());
+        }
+
+        this.commandName = params.name();
+        this.description = params.description();
+        this.usage = params.usage();
+        this.aliases = params.aliases().split(", ");
+        this.rank = params.rank();
+        this.source = params.source();
     }
 
     public void register()
@@ -162,7 +170,6 @@ public abstract class FreedomCommand implements CommandExecutor
                     return false;
                 }
             }
-
             return false;
         }
     }

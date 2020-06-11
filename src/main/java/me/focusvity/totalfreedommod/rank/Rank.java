@@ -72,21 +72,6 @@ public enum Rank implements Displayable
         return Rank.CONSOLE;
     }
 
-    public int getLevel()
-    {
-        return ordinal();
-    }
-
-    public boolean isAtLeast(Rank rank)
-    {
-        return getLevel() >= rank.getLevel();
-    }
-
-    public String getLoginMessage()
-    {
-        return determiner + " " + color + TextFormat.ITALIC + name;
-    }
-
     public static Displayable getDisplay(Player player)
     {
         if (AdminList.isImposter(player))
@@ -117,5 +102,20 @@ public enum Rank implements Displayable
         }
 
         return Rank.getRank(player);
+    }
+
+    public int getLevel()
+    {
+        return ordinal();
+    }
+
+    public boolean isAtLeast(Rank rank)
+    {
+        return getLevel() >= rank.getLevel();
+    }
+
+    public String getLoginMessage()
+    {
+        return determiner + " " + color + TextFormat.ITALIC + name;
     }
 }

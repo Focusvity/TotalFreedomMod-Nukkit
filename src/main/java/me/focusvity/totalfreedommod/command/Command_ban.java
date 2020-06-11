@@ -4,17 +4,17 @@ import cn.nukkit.Player;
 import cn.nukkit.Server;
 import cn.nukkit.command.Command;
 import cn.nukkit.command.CommandSender;
-import cn.nukkit.event.player.PlayerKickEvent;
 import cn.nukkit.utils.TextFormat;
 import me.focusvity.totalfreedommod.banning.BanManager;
 import me.focusvity.totalfreedommod.rank.Rank;
 import me.focusvity.totalfreedommod.util.FUtil;
 import org.apache.commons.lang3.StringUtils;
 
-@CommandParameters(description = "Bans a player", usage = "/<command> <player> [reason]", aliases = "gtfo", rank = Rank.SUPER_ADMIN, source = SourceType.BOTH)
-public class Command_ban
+@CommandParameters(name = "ban", description = "Bans a player", usage = "/<command> <player> [reason]", aliases = "gtfo", rank = Rank.SUPER_ADMIN, source = SourceType.BOTH)
+public class Command_ban extends FreedomCommand
 {
 
+    @Override
     public boolean onCommand(CommandSender sender, Command cmd, String string, String[] args)
     {
         if (args.length < 1)

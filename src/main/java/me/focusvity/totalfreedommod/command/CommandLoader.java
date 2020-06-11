@@ -1,12 +1,9 @@
 package me.focusvity.totalfreedommod.command;
 
-import cn.nukkit.Server;
 import cn.nukkit.command.CommandMap;
 import me.focusvity.totalfreedommod.TotalFreedomMod;
 
 import java.io.IOException;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.security.CodeSource;
 import java.util.regex.Matcher;
@@ -46,20 +43,7 @@ public class CommandLoader
                             Class<?> commandClass = Class.forName("me.focusvity.totalfreedommod.command." + matcher.group(1));
                             if (commandClass.isAnnotationPresent(CommandParameters.class))
                             {
-                                CommandParameters params = commandClass.getAnnotation(CommandParameters.class);
-                                FreedomCommand command = new BlankCommand(matcher.group(1).split("_")[1],
-                                        params.description(),
-                                        params.usage(),
-                                        params.aliases().split(", "),
-                                        params.rank(),
-                                        params.source(),
-                                        commandClass);
-                                command.register();
-                            }
-                            else
-                            {
-                                Constructor constructor = commandClass.getConstructor();
-                                FreedomCommand command = (FreedomCommand) constructor.newInstance();
+                                FreedomCommand command = (FreedomCommand) commandClass.getConstructor().newInstance();
                                 command.register();
                             }
                         }
@@ -75,28 +59,5 @@ public class CommandLoader
         {
             TotalFreedomMod.plugin.getLogger().critical("", ex);
         }
-    }
-
-    final CommandMap getCommandMap()
-    {
-        if (cmap == null)
-        {
-            try
-            {
-                final Field f = Server.getInstance().getClass().getDeclaredField("commandMap");
-                f.setAccessible(true);
-                cmap = (CommandMap) f.get(Server.getInstance());
-                return getCommandMap();
-            }
-            catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException ex)
-            {
-                TotalFreedomMod.plugin.getLogger().critical("", ex);
-            }
-        }
-        else if (cmap != null)
-        {
-            return cmap;
-        }
-        return getCommandMap();
     }
 }
